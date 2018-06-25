@@ -1,0 +1,52 @@
+<?php
+session_start();
+if(empty($_SESSION['usuario'])){
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/estilodelogin.css">
+    <title>Login |CódigoMasters|</title>
+</head>
+<body>
+    <p style="height:100px; width:100%;">
+    <p style="color:white; text-align:center; font-size:60px;">Mercedes<SUP>&#174;</SUP></p>
+    <div class="contenedor-form">
+        <div class="toggle">
+            <span> Crear Cuenta</span>
+        </div>
+        
+        <div class="formulario">
+            <h2>Iniciar Sesión</h2>
+            <form action="./php/validar.html" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <input type="submit" value="INICIAR SESION">
+            </form>
+        </div>
+        
+        <div class="formulario">
+            <h2>Crea tu Cuenta</h2>
+            <form action="php/insertar.php" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+                <input type="text" name="email" placeholder="Correo electronico" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <input type="submit" value="REGISTRARSE">
+            </form>
+        </div>
+        <div class="reset-password">
+            <a href="#">Olvide mi Contraseña?</a>
+        </div>
+    </div>
+    <script src="js/jquery-3.1.1.min.js"></script>    
+    <script src="js/main.js"></script>
+</body>
+</html>
+<?php
+}else{
+    header("location: index.html");
+}
+?>

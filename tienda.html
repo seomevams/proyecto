@@ -1,0 +1,83 @@
+
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Filtrando elementos por categorias</title>
+	<link rel="stylesheet" href="css/Estilo-tienda.css">
+	<link rel="stylesheet" href="css/encabezados.css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+	<script src="js/jquery-3.2.1.js"></script>
+	<script src="js/filtros.js"></script>
+</head>
+<body>
+	<header>
+        <nav id='cssmenu'>
+            <div class="logo"><img src="imagenes/logos.png" /></div>
+            <div id="head-mobile"></div>
+            <div class="button"></div>
+            <ul>
+                <?php
+                    if(empty($_SESSION['usuario'])){
+                ?>
+                <li id="sesion"><a href='sesion.html'>Iniciar sesion</a></li>
+                <?php
+                    }else{
+                ?>
+                    <li id="sesion"><a href='#'>
+                        <?php 
+                            print_r($_SESSION['usuario'][0]['usuario']);
+                        ?></a>
+                       <ul>
+                            <li id="cerrar"><a href='./php/cerrar.html'>Cerrar sesion </a></li>
+                        </ul>
+                    </li>
+                <?php
+                    }
+                ?>
+                <li><a href='contacto.html'>CONTACTO</a></li>
+                <li class="active">
+                    <a href='#'>TIENDA</a>
+                </li>
+                <li><a href='#'>CONOCENOS</a></li>
+                <li><a href='#'>NOTICIAS</a></li>
+                <li><a href='index.html'>HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+    <p style="width:100%; height:50px; background:black" />
+	<div class="wrap">
+		<h1>Escoge un producto</h1>
+		<div class="store-wrapper">
+			<div class="category_list">
+				<p>FILTRAR LIGAS</p>
+				<a href="#" class="category_item" category="all">Todo</a>
+				<a href="#" class="category_item" category="PremierLeague">A</a>
+				<a href="#" class="category_item" category="CalcioA">CLA</a>
+				<a href="#" class="category_item" category="LaLiga">GLA</a>
+				<a href="#" class="category_item" category="LigaMX">S</a>
+				<a href="#" class="category_item" category="MLS">SL</a>
+			</div>
+			<section class="products-list">
+				<?php
+			        include 'conexion.php';
+			        $consulta="select * from productos";
+        			$query=mysqli_query($conexion, $consulta); 
+        			while ($f=mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+        			?>
+				<div class="product-item" category="<?php echo $f['Liga'];?>">
+					<img src="./productos/<?php echo $f['imagen'];?>" alt=""><br>
+					<a href="./detalles.html?id=<?php  echo $f['id'];?>"><?php echo $f['nombre'];?></a>
+				</div>
+				<?php
+			        }
+    			?>  
+			</section>
+		</div>
+	</div>
+</body>
+</html>
